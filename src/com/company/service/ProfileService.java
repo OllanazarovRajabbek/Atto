@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.controller.AdmenController;
 import com.company.controller.UserController;
 import com.company.dto.Card;
 import com.company.dto.Profile;
@@ -8,6 +9,7 @@ import com.company.status.ProfileRole;
 import com.company.status.ProfileStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ProfileService {
     static ProfileRepository profileRepository = new ProfileRepository();
@@ -28,9 +30,19 @@ public class ProfileService {
     }
 
     public void login(String phone, String password) {
-        if (profileRepository.login(phone, password)) {
-            UserController userController = new UserController();
-            userController.start();
-        }
+        List<Profile> profileList = profileRepository.profileList(phone);
+        Profile profile = profileList.get(0);
+        if (profile.getPassword().equals(password)) {
+            if (profile.getRole().equals(ProfileRole.ADMEN)) {
+                AdmenController admenController= new AdmenController();
+                admenController.start();
+            }else {
+                UserController userController = new UserController();
+                userController.start();
+            }
+        }else System.out.println("Phone or password invalid!");
     }
+
+    // User service
+
 }

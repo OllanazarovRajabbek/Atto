@@ -5,19 +5,20 @@ import com.company.status.CardStatus;
 import java.time.LocalDateTime;
 
 public class Card {
-    private int id;
+    private String id;
     private  String number;
     private String ex_date;
     private Double balance;
     private CardStatus status;
     private String phone;
     private LocalDateTime localDateTime;
+    private Profile profile;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,5 +68,13 @@ public class Card {
 
     public void setLocalDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
